@@ -19,7 +19,7 @@ void setup()
   
   handServo.attach(handServoPin);              //Servo sinyal pimlerinin tanımlanmasi
   boxServo.attach(boxServoPin);
-  handServo.write(180);                        //Servo sıfırlama.
+  handServo.write(90);                        //Servo sıfırlama.
   boxServo.write(70);
 
   //randomSeed(analogRead(0));
@@ -28,6 +28,13 @@ void setup()
 
 void loop()
 {
+  
+  digitalWrite(ledPin,HIGH);
+  delay(500);
+  digitalWrite(ledPin,LOW);
+  delay(500);
+
+  
   switchStatus = digitalRead(frontSwitchPin); //anahtar durumunu oku
   //action = random(1,16);
   
