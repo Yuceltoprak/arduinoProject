@@ -3,7 +3,7 @@
 Servo handServo;                          //servo adi tanimlari
 Servo boxServo;
 
-int switchStatus=0, action=1, vot, randNumber=0;  //Anahtarlama durumunu, akü voltajını, anahtarlama sürelerini ve tipleri
+int switchStatus=0, action=1, randNumber=0;  //Anahtarlama durumunu, akü voltajını, anahtarlama sürelerini ve tipleri
 const int ledPin = 13;                    //LED pimlerinin tanımlanmasi
 const int frontSwitchPin = 2;
 const int handServoPin = 5;
