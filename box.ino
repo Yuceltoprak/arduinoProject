@@ -242,7 +242,7 @@ void loop()
     
     else if (action == 8)
     {
-      Serial.println("Action 8");      //Sekizinci: Protesto etmek için anahtarı kapatın ve elinizi kaldırın.
+      Serial.println("Action 8");      
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
@@ -380,7 +380,7 @@ void loop()
     
     else if (action == 13)
     {
-      Serial.println("Action 13");      //ekrar tekrar anahtarı kapatır ve geri çekilir
+      Serial.println("Action 13");      //tekrar tekrar anahtarı kapatır ve geri çekilir
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
