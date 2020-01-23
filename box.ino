@@ -3,7 +3,7 @@
 Servo handServo;                          //servo adi tanimlari
 Servo boxServo;
 
-int switchStatus=0, action=1, randNumber=0;  //Anahtarlama durumunu, akü voltajını, anahtarlama sürelerini ve tipleri
+int switchStatus=0, action=1;  //Anahtarlama durumunu, akü voltajını, anahtarlama sürelerini ve tipleri
 const int ledPin = 13;                    //LED pimlerinin tanımlanmasi
 const int frontSwitchPin = 2;
 const int handServoPin = 5;
@@ -17,12 +17,12 @@ void setup()
   pinMode(ledPin, OUTPUT);                  //LED pinini çıkış olarak tanımla
   digitalWrite(ledPin,HIGH);
   
-  handServo.attach(handServoPin);              //Servo sinyal pimlerinin tanımlanmasi
+  handServo.attach(handServoPin);              //Servo sinyal pimlerinin baglamaları
   boxServo.attach(boxServoPin);
-  handServo.write(90);                        //Servo sıfırlama.
+  
+  handServo.write(70);                        //Servo sıfırlama. 90dı. 70 güzel
   boxServo.write(70);
 
-  //randomSeed(analogRead(0));
 }
 
 
@@ -35,10 +35,10 @@ void loop()
   delay(500);
 
   
-  switchStatus = digitalRead(frontSwitchPin); //anahtar durumunu oku
+  switchStatus = digitalRead(frontSwitchPin); //anahtar durumunu oku, 2
   //action = random(1,16);
   
-  if (switchStatus == LOW){                   //anahtar acıldıysa
+  if (switchStatus == LOW){                   //anahtarı birisi actıysa
     
     if (action == 1)
     {
@@ -72,7 +72,7 @@ void loop()
     
     else if (action == 2)
     {
-      Serial.println("Action 2");         //anahtar hızlıca kapatilir
+      Serial.println("Action 2");         //anahtar hızlıca kapatilir. ardınfan bakıp geri girer..
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
@@ -82,9 +82,9 @@ void loop()
       delay(550);
       handServo.write(180);
       delay(550);
-      boxServo.write(70);
+      boxServo.write(70); //hareket bitti
       delay(1500);
-      for (int i = 70; i <= 110; i++){
+      for (int i = 70; i <= 110; i++){ //tekrar actı
         boxServo.write(i);
         delay(6);
       }
@@ -95,20 +95,20 @@ void loop()
     
     else if (action == 3)
     {
-      Serial.println("Action 3");         //yukarı bakar ve düğmeyi hızla kapatır.
+      Serial.println("Action 3");         //hızlı açar, yukarı bakar, geri girer. Ve geri çıkıp ve düğmeyi hızla kapatır.
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
       }
       delay(1000);
-      boxServo.write(70);
+      boxServo.write(70); //kapar
       delay(2000);
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
       }
       handServo.write(26);
-      delay(550);
+      delay(500);
       handServo.write(180);
       delay(500);
       boxServo.write(70);
@@ -117,7 +117,7 @@ void loop()
    
     else if (action == 4)
     {
-      Serial.println("Action 4");         //yavaşça bakar, anahtara dokunur ve sonra hızla kapatır.
+      Serial.println("Action 4");         //yavaşça çıkıp bakar, anahtara gelir bekler, kapar ve geri döner.
       for (int i = 70; i <= 110; i++)
       {
         boxServo.write(i);
@@ -166,9 +166,9 @@ void loop()
       handServo.write(40);
       delay(200);
       handServo.write(65);
-      delay(2000);
+      delay(500);
       handServo.write(26);
-      delay(400);
+      //delay(400); daha iyi.
       handServo.write(180);
       delay(400);
       boxServo.write(70);
@@ -188,7 +188,7 @@ void loop()
       for (int i = 0; i < 12; i++)
       {
         for (int j = 70; j <= 110; j++){
-          boxServo.write(j);
+          boxServo.write(j);  ///kutu yavas acılsın
           delay(6);
         }
         delay(200);
@@ -205,15 +205,15 @@ void loop()
       boxServo.write(70);
       delay(1500);
       for (int i = 70; i <= 110; i++){
-        boxServo.write(i);
+        boxServo.write(i);  //kutu kapandı. tekrar açılıp bakıyor..
         delay(6);
       }
       delay(3000);
-      boxServo.write(80);
+      boxServo.write(70);
       action++;
     }
     
-    else if (action == 7)
+    else if (action == 7)     //hızlıca cıkar, kapattıktan sonra el dısardayken; kapak açılıp kapanır tepki olarak
     {
       Serial.println("Action 7");      
 
@@ -240,7 +240,7 @@ void loop()
       action++;
     }
     
-    else if (action == 8)
+    else if (action == 8) //hızlıca çıkar, kapar, bir iki kez daha kapar. Girer
     {
       Serial.println("Action 8");      
       for (int i = 70; i <= 110; i++){
@@ -265,7 +265,7 @@ void loop()
     
     else if (action == 9)
     {
-      Serial.println("Action 9");
+      Serial.println("Action 9");   //kutuyu aralar, sonra tamamen açar, anahtarı kapar girer. (aralayıp bakıyor)
 
       for (int i = 70; i <= 105; i++){
         boxServo.write(i);
@@ -288,15 +288,15 @@ void loop()
       }
       boxServo.write(70);
       delay(2000);
-      boxServo.write(100);
+      boxServo.write(100);    
       delay(3000);
       boxServo.write(70);
       action++;
     }
   
-    
-    else if (action == 10)
-    {
+      
+    else if (action == 10)      //ağırca açıyor, 100 saliselik aralıklarla yavasca açıyor.. kapayıp giriyor.
+    {   
       Serial.println("Action 10");	
       for (int i = 70; i <= 105; i++)
       {
@@ -322,7 +322,7 @@ void loop()
       action++;
     }
     
-    else if (action == 11)
+    else if (action == 11)    //kapattı. git gel yapıp girdi. geri geldi tekrer kapr gibi yaptı..
     {
       Serial.println("Action 11");
       for (int i = 70; i <= 110; i++){
@@ -357,7 +357,7 @@ void loop()
     
     else if (action == 12)
     {
-      Serial.println("Action 12");      //düğmeyi yavaşça kapatır ve sonra hızla geri çekilir kızgındır
+      Serial.println("Action 12");      //kutuyu yavasca açar, anahtarı yavaşca kapar ve sonra hızla geri çekilir
       for (int i = 70; i <= 110; i++)
       {
         boxServo.write(i);
@@ -380,22 +380,22 @@ void loop()
     
     else if (action == 13)
     {
-      Serial.println("Action 13");      //tekrar tekrar anahtarı kapatır ve geri çekilir
+      Serial.println("Action 13");      //tekrar tekrar anahtarı kapar gibi yapar, bir kez kapatır ve geri çekilir
       for (int i = 70; i <= 110; i++){
         boxServo.write(i);
         delay(6);
       }
       delay(2000);
-      for (int i = 180; i >= 60; i--)
+      for (int i = 180; i >= 80; i--)
       {
         handServo.write(i);
         delay(40);
       }
       for (int i = 0; i < 3; i++)
       {
-        handServo.write(60);
+        handServo.write(80);
         delay(200);
-        handServo.write(40);
+        handServo.write(60);
         delay(800);
       }
       handServo.write(26);
@@ -408,7 +408,7 @@ void loop()
     
     else if (action == 14)
     {
-      Serial.println("Action 14");     //kızgındır ve başının yarısını gösterir ve size bakar, sonra anahtarı hemen kapatır ve size bakmaya devam eder
+      Serial.println("Action 14");     //başının yarısını gösterir ve size bakar, sonra anahtarı hemen kapatır(eli içerde) ve size bakmaya devam eder
       for (int i = 70; i <= 105; i++){
         boxServo.write(i);
         delay(6);
@@ -427,8 +427,7 @@ void loop()
     
     else if (action == 15)
     {
-      Serial.println("Action 15");    //kafanın yarısını, daha sonra tamamını ve sonra kafanın yarısını tekrar ediyor ve sonra yavaşça anahtarı kapatıyor.(öfkeli)
-
+      Serial.println("Action 15");    //kafanın yarısını, daha sonra tamamını ve sonra kafanın yarısını tekrar ediyor(3-4 kez) ve sonra yavaşça anahtarı kapatıyor giriyoe.(öfkeli)
 
       for (int i = 70; i <= 105; i++){
         boxServo.write(i);
