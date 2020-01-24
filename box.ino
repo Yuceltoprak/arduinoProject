@@ -1,6 +1,6 @@
-#include <Servo.h>                        //servo kütüphanesi
+#include <Servo.h>                        //servo lib
 
-Servo handServo;                          //servo adi tanimlari
+Servo handServo;                          
 Servo boxServo;
 
 int switchStatus=0, action=1;  //Anahtarlama durumunu, anahtarlama sürelerini ve tipleri
