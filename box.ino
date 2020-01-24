@@ -3,7 +3,7 @@
 Servo handServo;                          //servo adi tanimlari
 Servo boxServo;
 
-int switchStatus=0, action=1;  //Anahtarlama durumunu, akü voltajını, anahtarlama sürelerini ve tipleri
+int switchStatus=0, action=1;  //Anahtarlama durumunu, anahtarlama sürelerini ve tipleri
 const int ledPin = 13;                    //LED pimlerinin tanımlanmasi
 const int frontSwitchPin = 2;
 const int handServoPin = 5;
@@ -20,7 +20,7 @@ void setup()
   handServo.attach(handServoPin);              //Servo sinyal pimlerinin baglamaları
   boxServo.attach(boxServoPin);
   
-  handServo.write(70);                        //Servo sıfırlama. 90dı. 70 güzel
+  handServo.write(90);                        //Servo sıfırlama. 90 güzel
   boxServo.write(70);
 
 }
